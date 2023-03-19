@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 
-// 오늘 알게 된 점
-// flutter구성은 widget의 모음
-// scaffold는 가장 큰 레이아웃 느낌!
-// appBar: scaffold 상단의 앱 바
+// 이번 커밋 내용 요약
+//bar 아래 부분: body
+//클래스 생성 및 생성자
+class Player {
+  /*? 있는 건 있어도 되고 없어도 됨*/
+  String? name;
+  /*named parameter*/
+  Player({required this.name});
+}
+
 void main() {
+  var name = Player(name: "sunny");
+  //sunny.name으로 접근 가능
   runApp(App());
 }
 
@@ -14,9 +22,14 @@ class App extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
+          elevation: 99,
           title: Text("Hello flutter!"),
         ),
-        body: Text("Hello world!"),
+        //bar 아래 부분: body
+        // 마우스 올리면 center에 child 필요함을 알 수 있음
+        body: Center(
+          child: Text("Hello world!"),
+        ),
       ),
     );
   }
