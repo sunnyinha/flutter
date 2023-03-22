@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-// 이번 커밋 내용 요약
-
 void main() {
   runApp(App());
 }
@@ -13,27 +11,21 @@ class App extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Color(0xFF181818),
         body: Padding(
-          //상하좌우 여백 10
-          // padding: EdgeInsets.all(10),
-          //수평 여백 40
           padding: EdgeInsets.symmetric(horizontal: 40),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 위에 여백 줄 때 사용함.
               SizedBox(
                 height: 80,
               ),
               Row(
-                //가로축 기준 오른쪽 정렬
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Column(
-                    // 세로축 기준으로 오른쪽 정렬
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
                         "Hey, Cloudy",
-                        //글자 style 관련은 text에 TextStyle이 관리
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 28,
@@ -47,6 +39,50 @@ class App extends StatelessWidget {
                           )),
                     ],
                   )
+                ],
+              ),
+              SizedBox(
+                height: 120,
+              ),
+              Text(
+                "Total Balance",
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.white.withOpacity(0.8),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "\$5 194 482",
+                style: TextStyle(
+                  fontSize: 48,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Row(
+                children: [
+                  //버튼 제작
+                  Container(
+                    //버튼 박스 꾸미기
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(45),
+                    ),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                      child: Text("Transfer",
+                          style: TextStyle(
+                            fontSize: 20,
+                          )),
+                    ),
+                  ),
                 ],
               )
             ],
