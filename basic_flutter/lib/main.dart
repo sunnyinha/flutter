@@ -1,18 +1,8 @@
 import 'package:flutter/material.dart';
 
 // 이번 커밋 내용 요약
-//bar 아래 부분: body
-//클래스 생성 및 생성자
-class Player {
-  /*? 있는 건 있어도 되고 없어도 됨*/
-  String? name;
-  /*named parameter*/
-  Player({required this.name});
-}
 
 void main() {
-  var name = Player(name: "sunny");
-  //sunny.name으로 접근 가능
   runApp(App());
 }
 
@@ -21,14 +11,46 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          elevation: 99,
-          title: Text("Hello flutter!"),
-        ),
-        //bar 아래 부분: body
-        // 마우스 올리면 center에 child 필요함을 알 수 있음
-        body: Center(
-          child: Text("Hello world!"),
+        backgroundColor: Color(0xFF181818),
+        body: Padding(
+          //상하좌우 여백 10
+          // padding: EdgeInsets.all(10),
+          //수평 여백 40
+          padding: EdgeInsets.symmetric(horizontal: 40),
+          child: Column(
+            children: [
+              // 위에 여백 줄 때 사용함.
+              SizedBox(
+                height: 80,
+              ),
+              Row(
+                //가로축 기준 오른쪽 정렬
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Column(
+                    // 세로축 기준으로 오른쪽 정렬
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        "Hey, Cloudy",
+                        //글자 style 관련은 text에 TextStyle이 관리
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      Text("Welcome back",
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(0.8),
+                            fontSize: 18,
+                          )),
+                    ],
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
