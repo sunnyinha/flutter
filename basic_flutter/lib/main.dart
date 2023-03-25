@@ -15,7 +15,9 @@ class App extends StatelessWidget {
         backgroundColor: const Color(0xFF181818),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
+          // 아래로 차근차근 화면 구성예정
           child: Column(
+            //기본 아래 자식들 정렬 세팅
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
@@ -82,6 +84,82 @@ class App extends StatelessWidget {
                     textColor: Colors.white,
                   ),
                 ],
+              ),
+              const SizedBox(
+                height: 100,
+              ),
+              Row(
+                //x축으로 여백(사이공간)을 똑같이 나눔
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //y축으로 한쪽 끝으로 가게 해줌
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const Text(
+                    "Wallets",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 36,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text("View All",
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.8),
+                      )),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xff1f2123),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(30),
+                  child: Row(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Euro",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 32,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              const Text(
+                                "6 428",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                "EUR",
+                                style: TextStyle(
+                                  color: Colors.white.withOpacity(0.8),
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               )
             ],
           ),
