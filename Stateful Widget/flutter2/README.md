@@ -1,6 +1,6 @@
-# flutter1
+# flutter2
 
-위젯 이해하고 사용해보기
+state 알아보기
 
 ## Getting Started
 
