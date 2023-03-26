@@ -112,6 +112,7 @@ class App extends StatelessWidget {
                 height: 20,
               ),
               Container(
+                clipBehavior: Clip.hardEdge,
                 decoration: BoxDecoration(
                   color: const Color(0xff1f2123),
                   borderRadius: BorderRadius.circular(20),
@@ -119,6 +120,7 @@ class App extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(30),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,6 +159,20 @@ class App extends StatelessWidget {
                           )
                         ],
                       ),
+                      //아이콘을 포함하는 박스 크기 그대로 두고 아이콘 크기만 변경
+                      Transform.scale(
+                        scale: 2.3,
+                        //아이콘 위치 이동
+                        child: Transform.translate(
+                          offset: const Offset(3, 10),
+                          //아이콘 추가
+                          child: const Icon(
+                            Icons.euro_rounded,
+                            color: Colors.white,
+                            size: 88,
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
