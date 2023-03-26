@@ -16,7 +16,9 @@ class _MyAppState extends State<MyApp> {
   int counter = 0;
 
   void onClicked() {
-    counter += 1;
+    setState(() {
+      counter += 1;
+    });
   }
 
   @override
