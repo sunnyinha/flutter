@@ -12,6 +12,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool showTitle = true;
+
+  void toggleTitle() {
+    setState(() {
+      showTitle = !showTitle;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,13 +30,17 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
       ),
-      home: const Scaffold(
-        backgroundColor: Color(0xfff4eddb),
+      home: Scaffold(
+        backgroundColor: const Color(0xfff4eddb),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              MyLargeTitle(),
+              showTitle ? const MyLargeTitle() : const Text("nothing"),
+              IconButton(
+                onPressed: toggleTitle,
+                icon: const Icon(Icons.remove_red_eye),
+              )
             ],
           ),
         ),
@@ -37,24 +49,38 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class MyLargeTitle extends StatelessWidget {
+class MyLargeTitle extends StatefulWidget {
   const MyLargeTitle({
     super.key,
   });
 
   @override
-  //부모 요소에 접근하는 법: BuildContext(위젯트리 위치 제공 및 데이터 접근 가능)
-  //context = MyLargeTitle Text의 부모 요소들의 모든 정보를 담음
+  State<MyLargeTitle> createState() => _MyLargeTitleState();
+}
+
+class _MyLargeTitleState extends State<MyLargeTitle> {
+//부모 요소를 참조해서 데이터를 초기화할 때 주로 사용
+// initState 메서드는 bulid 전 실행
+  @override
+  void initState() {
+    super.initState();
+    print("initState call");
+  }
+
+//위젯이 스크린에서 제거될 때 호출되는 메서드
+  @override
+  void dispose() {
+    super.dispose();
+    print("dispose call");
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print("build call");
     return Text(
       "My Large Title",
       style: TextStyle(
         fontSize: 30,
-        //context(부모 요소)들 중에 theme을 찾고
-        // 그곳의 texttheme-> textTheme-> titleLarge-> color에 접근
-        // ?는 null safety 에러 방지를 위해 있으면 넣고 없음 말고의 의미
-        // ?를 !로 바꾸고 null값 절대 아님을 강조해도 에러에서 벗어날 수 있음.
-
         color: Theme.of(context).textTheme.titleLarge?.color,
       ),
     );
