@@ -16,8 +16,15 @@ class _HomeScreenState extends State<HomeScreen> {
   int totalPomodoros = 0;
   late Timer timer;
 
+  void resetPressed() {
+    setState(() {
+      isRunning = false;
+      totalSeconds = twentyFiveMinutes;
+    });
+    timer.cancel();
+  }
+
   void onTick(Timer timer) {
-    //시간이 다되면 reset + 횟수 세기
     if (totalSeconds == 0) {
       setState(() {
         totalPomodoros++;
@@ -55,8 +62,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String format(int seconds) {
     var duration = Duration(seconds: seconds);
-    //print를 통해 debug console로 결과값을 살피면서 debuging 할 수 있음.
-    //print(duration.toString().split(".").first.substring(2, 7));
     return duration.toString().split(".").first.substring(2, 7);
   }
 
@@ -82,14 +87,27 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Flexible(
             flex: 3,
-            child: Center(
-              child: IconButton(
-                iconSize: 120,
-                color: Theme.of(context).cardColor,
-                onPressed: isRunning ? onPausePressed : onStartPressed,
-                icon: Icon(isRunning
-                    ? Icons.pause_circle_outline
-                    : Icons.play_circle_outline),
+            child: Transform.translate(
+              offset: const Offset(0, 80),
+              child: Center(
+                child: Column(
+                  children: [
+                    IconButton(
+                      iconSize: 120,
+                      color: Theme.of(context).cardColor,
+                      onPressed: isRunning ? onPausePressed : onStartPressed,
+                      icon: Icon(isRunning
+                          ? Icons.pause_circle_outline
+                          : Icons.play_circle_outline),
+                    ),
+                    IconButton(
+                      iconSize: 100,
+                      color: Theme.of(context).cardColor,
+                      onPressed: resetPressed,
+                      icon: const Icon(Icons.refresh),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
