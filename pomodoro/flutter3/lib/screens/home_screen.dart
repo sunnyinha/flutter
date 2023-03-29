@@ -10,15 +10,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int totalSeconds = 1500;
-  //타이머 작동 상태 체크용 변수
+  static const twentyFiveMinutes = 1500;
+  int totalSeconds = twentyFiveMinutes;
   bool isRunning = false;
+  int totalPomodoros = 0;
   late Timer timer;
 
   void onTick(Timer timer) {
-    setState(() {
-      totalSeconds--;
-    });
+    //시간이 다되면 reset + 횟수 세기
+    if (totalSeconds == 0) {
+      setState(() {
+        totalPomodoros++;
+        isRunning = false;
+        totalSeconds = twentyFiveMinutes;
+      });
+      timer.cancel();
+    } else {
+      setState(() {
+        totalSeconds--;
+      });
+    }
   }
 
   void onStartPressed() {
@@ -42,6 +53,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  String format(int seconds) {
+    var duration = Duration(seconds: seconds);
+    //print를 통해 debug console로 결과값을 살피면서 debuging 할 수 있음.
+    //print(duration.toString().split(".").first.substring(2, 7));
+    return duration.toString().split(".").first.substring(2, 7);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Container(
               alignment: Alignment.bottomCenter,
               child: Text(
-                "$totalSeconds",
+                format(totalSeconds),
                 style: TextStyle(
                   color: Theme.of(context).cardColor,
                   fontSize: 89,
@@ -68,7 +86,6 @@ class _HomeScreenState extends State<HomeScreen> {
               child: IconButton(
                 iconSize: 120,
                 color: Theme.of(context).cardColor,
-                //타이머 작동중 아니면 타이머 시작/ 작동 중이면 정지
                 onPressed: isRunning ? onPausePressed : onStartPressed,
                 icon: Icon(isRunning
                     ? Icons.pause_circle_outline
@@ -100,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   .color),
                         ),
                         Text(
-                          "0",
+                          "$totalPomodoros",
                           style: TextStyle(
                               fontSize: 58,
                               fontWeight: FontWeight.w600,
