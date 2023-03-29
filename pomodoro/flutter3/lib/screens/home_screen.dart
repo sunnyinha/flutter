@@ -11,10 +11,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int totalSeconds = 1500;
-  //late : 당장 초기화하고 사용하지 않을 거라는 거 명시
+  //타이머 작동 상태 체크용 변수
+  bool isRunning = false;
   late Timer timer;
 
-//timer의 넣을 함수는 Timer timer를 인자로 가져야 한다.
   void onTick(Timer timer) {
     setState(() {
       totalSeconds--;
@@ -22,10 +22,23 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void onStartPressed() {
-    //timer 실행주기, 실행 함수
     timer = Timer.periodic(
       const Duration(seconds: 1),
       onTick,
+    );
+    setState(
+      () {
+        isRunning = true;
+      },
+    );
+  }
+
+  void onPausePressed() {
+    timer.cancel();
+    setState(
+      () {
+        isRunning = false;
+      },
     );
   }
 
@@ -53,11 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
             flex: 3,
             child: Center(
               child: IconButton(
-                  iconSize: 120,
-                  color: Theme.of(context).cardColor,
-                  //버튼 눌렀을 때 시작
-                  onPressed: onStartPressed,
-                  icon: const Icon(Icons.play_circle_outline)),
+                iconSize: 120,
+                color: Theme.of(context).cardColor,
+                //타이머 작동중 아니면 타이머 시작/ 작동 중이면 정지
+                onPressed: isRunning ? onPausePressed : onStartPressed,
+                icon: Icon(isRunning
+                    ? Icons.pause_circle_outline
+                    : Icons.play_circle_outline),
+              ),
             ),
           ),
           Flexible(
