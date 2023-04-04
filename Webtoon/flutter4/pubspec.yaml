@@ -30,6 +30,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+#이친구도 파이썬처럼 라인 맞춰야 설치 실행됨.
+#https://pub.dev/ 여기서 설치할 패키지들 찾아서 넣어주기
+  http: ^0.13.5
+
 
 
   # The following adds the Cupertino Icons font to your application.
