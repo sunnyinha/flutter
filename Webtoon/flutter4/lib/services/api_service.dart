@@ -1,18 +1,25 @@
+import 'dart:convert';
+
+import 'package:flutter4/models/webtoon_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
   final String baseUrl = "https://webtoon-crawler.nomadcoders.workers.dev";
   final String today = "today";
 
-  //비동기(asynchronous)-> 작업 완료 안기다리고 다음 작업 가능
-  void getTodaysToons() async {
+  Future<List<WebtoonModel>> getTodaysToons() async {
+    List<WebtoonModel> webtoonInstances = [];
     final url = Uri.parse("$baseUrl/$today");
-    //get : 특정 url에 요청을 보내고 API 요청이 처리되서 Future 자료형의 응답을 반환
-    //but 우리는 이 응답을 사용해야해서 기다려야 함. await 사용으로 기다림.
     final response = await http.get(url);
     if (response.statusCode == 200) {
-      print(response.body);
-      return;
+      // jsonDecode: jsonString 문자열을 파싱하여  Map 객체를 할당
+      final List<dynamic> webtoons = jsonDecode(response.body);
+      for (var webtoon in webtoons) {
+        // 웹툰 map형태로 저장된 것들을 list에 저장
+        final instance = WebtoonModel.fromJson(webtoon);
+        webtoonInstances.add(instance);
+      }
+      return webtoonInstances;
     }
     throw Error();
   }
